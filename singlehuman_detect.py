@@ -130,10 +130,11 @@ train_step=tf.train.AdamOptimizer(learning_rate).minimize(cost)
 # predicted=Y if ((y_conv>0.5 and Y==1) or (y_conv<0.5 and Y==0)) else (1-Y)
 # correct_prediction=tf.equal(predicted,Y)
 # accuracy=tf.reduce_mean(tf.cast(correct_prediction,tf.float32))*100
+saver=tf.train.Saver()
 with tf.Session() as sess:
 	sess.run(tf.gloabal_variables_initializer())
-	saver = tf.train.saver()
 	#*******Training******
 	for i in range(20000):   # change according to the number of images
 		train_step.run(feed_dict{X:X_in, Y_label:Y_in, Y_linear1: Y_in_linear})
-
+	save_path=saver.save('restore/restore.ckpt')
+	print "Successfully saved in ",save_path
